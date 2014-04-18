@@ -1,7 +1,7 @@
 # Snakachou
 
 Snakachou is a simple snake game created using HTML5 canvas.
-The goal is to be the longest snake ever!
+Be the longest snake ever!
 Use arrow to move the snake.
 Press ENTER to reset the game.
 
