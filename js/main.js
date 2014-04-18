@@ -7,6 +7,9 @@ $(document).ready(function(){
     var SECOND = 1000; //a second in miliseconds
     var SNAKE_INITIAL_LENGTH = 5;
     var SNAKE_INITIAL_DIRECTION = "right";
+    var SNAKE_COLOR = "#000000";
+    var FOOD_COLOR = "#000000";
+    var UI_COLOR = "#FF8080";
     var FONT_SIZE = 80;
     var BLOCK = 10; //each block is 10x10 pixels
     var WIDTH = Math.floor(CANVAS_WIDTH/BLOCK) - 1; //width in block
@@ -227,17 +230,17 @@ $(document).ready(function(){
     
     function render(){
         renderInit();
+        renderUI();
         renderSnake();
         renderFood();
-        renderUI();
     }
     
     function renderInit(){
         context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
-        context.fillStyle = "#000000"; //choose color here
     }
     
     function renderSnake(){
+        context.fillStyle = SNAKE_COLOR;
         for(var i = 0; i < snake.length; i++){
             renderBlock(snake.get(i).x, snake.get(i).y);
         }
@@ -248,12 +251,14 @@ $(document).ready(function(){
     }
     
     function renderFood(){
+        context.fillStyle = FOOD_COLOR;
         for(var i = 0; i < food.count; i++){
             context.fillRect(food.get(i).x * BLOCK, food.get(i).y * BLOCK, BLOCK, BLOCK);
         }
     }
     
     function renderUI(){
+        context.fillStyle = UI_COLOR;
         context.font = "bold " + FONT_SIZE + "px Helvetica";
         context.textAlign = "center";
         context.fillText(game.score, CANVAS_CENTER_X, CANVAS_CENTER_Y);
