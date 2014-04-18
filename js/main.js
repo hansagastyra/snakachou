@@ -9,8 +9,8 @@ $(document).ready(function(){
     var SNAKE_INITIAL_DIRECTION = "right";
     var FONT_SIZE = 80;
     var BLOCK = 10; //each block is 10x10 pixels
-    var WIDTH = Math.floor(CANVAS_WIDTH/BLOCK); //width in block
-    var HEIGHT = Math.floor(CANVAS_HEIGHT/BLOCK); //height in block
+    var WIDTH = Math.floor(CANVAS_WIDTH/BLOCK) - 1; //width in block
+    var HEIGHT = Math.floor(CANVAS_HEIGHT/BLOCK) - 1; //height in block
     document.getElementById("game-container").width = CANVAS_WIDTH;
     document.getElementById("game-container").height = CANVAS_HEIGHT;
     var canvas = document.getElementById("game-container");
