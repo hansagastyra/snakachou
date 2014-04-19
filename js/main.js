@@ -5,6 +5,7 @@ $(document).ready(function(){
     var CANVAS_CENTER_Y = CANVAS_HEIGHT/2;
     var FPS = 30; //FPS for this game
     var SECOND = 1000; //a second in miliseconds
+    var TIME_LIMIT = 8; //in seconds
     var SNAKE_INITIAL_LENGTH = 5;
     var SNAKE_INITIAL_DIRECTION = "right";
     var SNAKE_COLOR = "#000000";
@@ -30,6 +31,7 @@ $(document).ready(function(){
     var game = {
         die: false,
         score: 0,
+        time: 0,
         dying: function(){
             this.die = true;
         },
@@ -39,6 +41,16 @@ $(document).ready(function(){
         reset: function(){
             this.die = false;
             this.score = 0;
+            this.time = TIME_LIMIT;
+        },
+        countdown: function(){
+            this.time--;
+            if(this.time === 0){
+                this.die = true;
+            }
+        },
+        countreset: function(){
+            this.time = TIME_LIMIT;
         }
     };
     
@@ -153,6 +165,13 @@ $(document).ready(function(){
     /* INIT THE GAME */
     initGame();
     
+    /* THE TIMER */
+    setInterval(function(){
+        if(!game.die){
+            game.countdown();
+        }
+    }, SECOND);
+    
     /* THE GAME LOOP */
     setInterval(function(){
         update();
@@ -192,6 +211,7 @@ $(document).ready(function(){
             }
             snake.incrementLength();
             game.scored();
+            game.countreset();
         } else{
             snake.pop();
         }
@@ -261,9 +281,11 @@ $(document).ready(function(){
         context.fillStyle = UI_COLOR;
         context.font = "bold " + FONT_SIZE + "px Helvetica";
         context.textAlign = "center";
-        context.fillText(game.score, CANVAS_CENTER_X, CANVAS_CENTER_Y);
+        context.fillText(game.score, CANVAS_CENTER_X, CANVAS_CENTER_Y - FONT_SIZE)
+        context.font = "bold " + FONT_SIZE * 0.75 + "px Helvetica";;
+        context.fillText("Time : " + game.time, CANVAS_CENTER_X, CANVAS_CENTER_Y);
         if(game.die){
-            context.font = "bold " + FONT_SIZE/2 + "px Helvetica";
+            context.font = "bold " + FONT_SIZE * 0.5 + "px Helvetica";
             context.fillText("Game Over :(", CANVAS_CENTER_X, CANVAS_CENTER_Y + FONT_SIZE);
             context.fillText("Press ENTER to reset", CANVAS_CENTER_X, CANVAS_CENTER_Y + (2 * FONT_SIZE));
         }
